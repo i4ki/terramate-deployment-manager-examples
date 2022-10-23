@@ -1,2 +1,2 @@
 all:
-	gcloud deployment-manager deployments create vm --config vm.yaml
+	gcloud deployment-manager deployments create vm --config cluster.yaml
