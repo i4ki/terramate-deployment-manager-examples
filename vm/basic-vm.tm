@@ -1,7 +1,7 @@
 # Example of creating a virtual machine.
 
 stack {
-    name = "basic vm"
+  name = "basic vm"
 }
 
 generate_file "vm.yaml" {
@@ -37,8 +37,8 @@ generate_file "vm.yaml" {
     }
   }
 
-    content = tm_join(
-        "\n", 
-        [global.generated_header, tm_yamlencode(let.deployment)]
-    )
+  content = tm_join(
+    "\n",
+    [global.generated_header, tm_yamlencode(let.deployment)]
+  )
 }
