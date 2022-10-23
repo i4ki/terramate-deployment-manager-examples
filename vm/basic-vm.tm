@@ -1,7 +1,7 @@
 # Example of creating a virtual machine.
 
 stack {
-  name = "basic vm"
+  name = "basic-vm"
 }
 
 generate_file "vm.yaml" {

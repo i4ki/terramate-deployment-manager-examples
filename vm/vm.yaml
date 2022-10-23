@@ -2,7 +2,7 @@
 # TERRAMATE: originated from generate_file block on /vm
 
 "resources":
-- "name": "basic vm"
+- "name": "basic-vm"
   "properties":
     "disks":
     - "autoDelete": true
