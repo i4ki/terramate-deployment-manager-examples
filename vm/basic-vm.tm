@@ -6,14 +6,16 @@ stack {
 
 generate_file "vm.yaml" {
   lets {
+    origin = terramate.stack.path
+    machine = "n1-standard-1"
     deployment = {
       resources = [
         {
-          name = "vm-created-by-deployment-manager"
+          name = terramate.stack.name
           type = "compute.v1.instance"
           properties = {
-            zone        = "us-central1-a"
-            machineType = "zones/us-central1-a/machineTypes/n1-standard-1"
+            zone        = global.project.default_zone
+            machineType = "zones/${global.project.default_zone}/machineTypes/${let.machine}"
             disks = [
               {
                 deviceName = "boot"
@@ -36,5 +38,8 @@ generate_file "vm.yaml" {
     }
   }
 
-  content = tm_yamlencode(let.deployment)
+    content = tm_join(
+        "\n", 
+        [global.generated_header, tm_yamlencode(let.deployment)]
+    )
 }
