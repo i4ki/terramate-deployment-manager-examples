@@ -6,7 +6,6 @@ stack {
 
 generate_file "vm.yaml" {
   lets {
-    origin = terramate.stack.path
     machine = "n1-standard-1"
     deployment = {
       resources = [
