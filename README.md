@@ -1,2 +1,2 @@
-# Terramate GKE Deployment Manager Example
+# Terramate Deployment Manager Examples
 
