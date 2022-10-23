@@ -1,7 +1,7 @@
 # Example of creating a GKE cluster
 
 stack {
-  name = "gke cluster"
+  name = "gke-cluster"
 }
 
 generate_file "cluster.yaml" {

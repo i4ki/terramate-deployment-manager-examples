@@ -2,7 +2,7 @@
 # TERRAMATE: originated from generate_file block on /gke-cluster
 
 "resources":
-- "name": "gke cluster"
+- "name": "gke-cluster"
   "properties":
     "cluster":
       "addonsConfig":
@@ -29,16 +29,16 @@
         "management":
           "autoRepair": false
           "autoUpgrade": false
-        "name": "gke clusternp"
+        "name": "gke-clusternp"
         "version": "1.22.12-gke.2300"
     "zone": "us-central1-a"
   "type": "gcp-types/container-v1:projects.zones.clusters"
-- "name": "gke cluster-gke-type"
+- "name": "gke-cluster-gke-type"
   "properties":
-    "descriptorUrl": "https://$(ref.gke cluster.endpoint)/openapi/v2"
+    "descriptorUrl": "https://$(ref.gke-cluster.endpoint)/openapi/v2"
     "options":
       "customCertificateAuthorityRoots":
-      - "$(ref.gke cluster.masterAuth.clusterCaCertificate)"
+      - "$(ref.gke-cluster.masterAuth.clusterCaCertificate)"
       "inputMappings":
       - "fieldName": "Authorization"
         "location": "HEADER"
