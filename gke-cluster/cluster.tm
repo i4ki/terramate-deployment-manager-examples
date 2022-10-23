@@ -4,7 +4,7 @@ stack {
   name = "gke-cluster"
 }
 
-generate_file "cluster.yaml" {
+generate_file "deployment.yaml" {
   lets {
     autoScaling       = false
     autoRepair        = false
