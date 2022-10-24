@@ -9,9 +9,7 @@
         "httpLoadBalancing":
           "disabled": false
       "nodePools":
-      - "autoScaling":
-          "enabled": false
-        "config":
+      - "config":
           "diskSizeGb": 10
           "imageType": "cos"
           "machineType": "g1-small"
