@@ -3,14 +3,17 @@ DEPLOYMENT=$(shell terramate experimental get-config-value terramate.stack.name)
 .PHONY: default
 default: help
 
+## create the deployment.
 .PHONY: create
 create:
 	gcloud deployment-manager deployments create $(DEPLOYMENT) --config deployment.yaml
 
+## update the deployment.
 .PHONY: update
 update:
 	gcloud deployment-manager deployments update $(DEPLOYMENT) --config deployment.yaml
 
+## delete the deployment.
 .PHONY: delete
 delete:
 	gcloud deployment-manager deployments delete $(DEPLOYMENT)
