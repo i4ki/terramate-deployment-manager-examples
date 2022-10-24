@@ -56,11 +56,6 @@ generate_file "deployment.yaml" {
             }
             version          = tm_try(let.node.version, null)
             initialNodeCount = let.node.initialCount
-            /*autoScaling = { for k, v in {
-              enabled      = let.autoScaling
-              minNodeCount = tm_ternary(let.autoScaling, 1, null)
-              maxNodeCount = tm_ternary(let.autoScaling, 2, null)
-            } : k => v if v != null }*/
             management = {
               autoUpgrade = let.autoUpgrade
               autoRepair  = let.autoRepair
@@ -91,7 +86,7 @@ generate_file "deployment.yaml" {
                 {
                   fieldName = "Authorization"
                   location  = "HEADER"
-                  value     = "Beared: $.googleOauth2AccessToken()"
+                  value     = "$.concat(\"Bearer \", $.googleOauth2AccessToken())"
                 },
                 {
                   fieldName   = "metadata.resourceVersion"
