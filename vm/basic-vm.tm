@@ -4,7 +4,7 @@ stack {
   name = "basic-vm"
 }
 
-generate_file "vm.yaml" {
+generate_file "deployment.yaml" {
   lets {
     machine = "n1-standard-1"
     deployment = {
