@@ -32,7 +32,7 @@
       "inputMappings":
       - "fieldName": "Authorization"
         "location": "HEADER"
-        "value": "Beared: $.googleOauth2AccessToken()"
+        "value": "$.concat(\"Bearer \", $.googleOauth2AccessToken())"
       - "fieldName": "metadata.resourceVersion"
         "location": "BODY"
         "methodMatch": "^(put|patch)$"
