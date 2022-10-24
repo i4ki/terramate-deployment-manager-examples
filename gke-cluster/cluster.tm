@@ -20,8 +20,8 @@ generate_file "deployment.yaml" {
     properties = {
       zone = global.project.default_zone
       cluster = { for k, v in {
-        monitoringService = tm_try(global.enable_monitoring, false)
-        loggingService    = tm_try(global.enable_logging, false)
+        monitoringService = tm_try(global.monitoringService, null)
+        loggingService    = tm_try(global.loggingService, null)
         addonsConfig = {
           httpLoadBalancing = {
             disabled = !let.httpLoadBalancing
