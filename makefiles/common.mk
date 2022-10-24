@@ -1,5 +1,8 @@
 DEPLOYMENT=$(shell terramate experimental get-config-value terramate.stack.name)
 
+.PHONY: default
+default: help
+
 .PHONY: create
 create:
 	gcloud deployment-manager deployments create $(DEPLOYMENT) --config deployment.yaml
