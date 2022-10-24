@@ -2,6 +2,7 @@
 
 stack {
   name = "gke-cluster"
+  description = "Basic example of a GKE cluster provisioning"
 }
 
 generate_file "deployment.yaml" {
@@ -19,6 +20,10 @@ generate_file "deployment.yaml" {
     }
     properties = {
       zone = global.project.default_zone
+
+      # The {for ...} used below is needed to get rid of null values in the object.
+      # This would be greatly simplified if Terramate provides a `tm_compact()`
+      # that removes null entries from list/map/objects.
       cluster = { for k, v in {
         monitoringService = tm_try(global.monitoringService, null)
         loggingService    = tm_try(global.loggingService, null)
