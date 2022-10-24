@@ -1,2 +1,2 @@
-all:
+$(MAKECMDGOALS):
 	terramate run -- make $(MAKECMDGOALS)
