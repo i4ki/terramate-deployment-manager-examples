@@ -1,7 +1,7 @@
 # project wide configuration
 
 globals "project" {
-  default_zone      = "us-central1-a"
+  default_zone = "us-central1-a"
 }
 
 globals {
