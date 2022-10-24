@@ -3,5 +3,5 @@
 In order to run all examples, just execute:
 
 ```
-$ terramate run -- make
+$ terramate run -- make create
 ```
