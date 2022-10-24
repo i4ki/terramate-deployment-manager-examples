@@ -8,17 +8,11 @@
       "addonsConfig":
         "httpLoadBalancing":
           "disabled": false
-      "currentMasterVersion": null
-      "initialClusterVersion": null
-      "locations": null
       "loggingService": false
-      "maintenancePolicy": null
       "monitoringService": false
       "nodePools":
       - "autoScaling":
           "enabled": false
-          "maxNodeCount": null
-          "minNodeCount": null
         "config":
           "diskSizeGb": 10
           "imageType": "cos"

@@ -56,11 +56,11 @@ generate_file "deployment.yaml" {
             }
             version          = tm_try(let.node.version, null)
             initialNodeCount = let.node.initialCount
-            autoScaling = {
+            autoScaling = { for k, v in {
               enabled      = let.autoScaling
               minNodeCount = tm_ternary(let.autoScaling, 1, null)
               maxNodeCount = tm_ternary(let.autoScaling, 2, null)
-            }
+            } : k => v if v != null }
             management = {
               autoUpgrade = let.autoUpgrade
               autoRepair  = let.autoRepair
