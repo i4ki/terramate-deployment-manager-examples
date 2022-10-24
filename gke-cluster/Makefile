@@ -5,7 +5,7 @@ all:
 
 .PHONY: update-preview
 update-preview:
-	gcloud deployment-manager deployments update --config deployment.yaml --preview
+	gcloud deployment-manager deployments update $(DEPLOYMENT) --config deployment.yaml --preview
 
 .PHONY: delete
 delete:
