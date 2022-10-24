@@ -2,8 +2,6 @@
 
 globals "project" {
   default_zone      = "us-central1-a"
-  enable_monitoring = true
-  enable_logging    = true
 }
 
 globals {

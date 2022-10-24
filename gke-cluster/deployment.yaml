@@ -8,8 +8,6 @@
       "addonsConfig":
         "httpLoadBalancing":
           "disabled": false
-      "loggingService": false
-      "monitoringService": false
       "nodePools":
       - "autoScaling":
           "enabled": false
