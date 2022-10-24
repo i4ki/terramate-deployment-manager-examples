@@ -17,63 +17,64 @@ generate_file "deployment.yaml" {
       version      = "1.22.12-gke.2300"
       initialCount = 1
     }
+    properties = {
+      zone = global.project.default_zone
+      cluster = { for k, v in {
+        monitoringService = tm_try(global.enable_monitoring, false)
+        loggingService    = tm_try(global.enable_logging, false)
+        addonsConfig = {
+          httpLoadBalancing = {
+            disabled = !let.httpLoadBalancing
+          }
+        }
+        locations             = tm_try(tm_split(",", global.project.locations), null)
+        currentMasterVersion  = tm_try(let.currentMasterVersion, null)
+        initialClusterVersion = tm_try(let.initialClusterVersion, null)
+        maintenancePolicy = tm_ternary(
+          tm_can(global.maintenanceWindowDuration),
+          {
+            window = {
+              dailyMaintenanceWindow = {
+                startTime = "00:00"
+                duration  = global.maintenanceWindowDuration
+              }
+            }
+          },
+          null,
+        )
+
+        nodePools = [
+          {
+            name = "${terramate.stack.name}np"
+            config = {
+              machineType = let.node.machineType
+              diskSizeGb  = let.node.diskSizeGb
+              oauthScopes = [
+                "https://www.googleapis.com/auth/devstorage.read_only"
+              ]
+              imageType = let.node.imageType
+            }
+            version          = tm_try(let.node.version, null)
+            initialNodeCount = let.node.initialCount
+            autoScaling = {
+              enabled      = let.autoScaling
+              minNodeCount = tm_ternary(let.autoScaling, 1, null)
+              maxNodeCount = tm_ternary(let.autoScaling, 2, null)
+            }
+            management = {
+              autoUpgrade = let.autoUpgrade
+              autoRepair  = let.autoRepair
+            }
+          }
+        ]
+      } : k => v if v != null }
+    }
     deployment = {
       resources = [
         {
-          name = terramate.stack.name
-          type = "gcp-types/container-v1:projects.zones.clusters"
-          properties = {
-            zone = global.project.default_zone
-            cluster = {
-              monitoringService = tm_try(global.enable_monitoring, false)
-              loggingService    = tm_try(global.enable_logging, false)
-              addonsConfig = {
-                httpLoadBalancing = {
-                  disabled = !let.httpLoadBalancing
-                }
-              }
-              locations             = tm_try(tm_split(",", global.project.locations), null)
-              currentMasterVersion  = tm_try(let.currentMasterVersion, null)
-              initialClusterVersion = tm_try(let.initialClusterVersion, null)
-              maintenancePolicy = tm_ternary(
-                tm_can(global.maintenanceWindowDuration),
-                {
-                  window = {
-                    dailyMaintenanceWindow = {
-                      startTime = "00:00"
-                      duration  = global.maintenanceWindowDuration
-                    }
-                  }
-                },
-                null,
-              )
-
-              nodePools = [
-                {
-                  name = "${terramate.stack.name}np"
-                  config = {
-                    machineType = let.node.machineType
-                    diskSizeGb  = let.node.diskSizeGb
-                    oauthScopes = [
-                      "https://www.googleapis.com/auth/devstorage.read_only"
-                    ]
-                    imageType = let.node.imageType
-                  }
-                  version          = tm_try(let.node.version, null)
-                  initialNodeCount = let.node.initialCount
-                  autoScaling = {
-                    enabled      = let.autoScaling
-                    minNodeCount = tm_ternary(let.autoScaling, 1, null)
-                    maxNodeCount = tm_ternary(let.autoScaling, 2, null)
-                  }
-                  management = {
-                    autoUpgrade = let.autoUpgrade
-                    autoRepair  = let.autoRepair
-                  }
-                }
-              ]
-            }
-          }
+          name       = terramate.stack.name
+          type       = "gcp-types/container-v1:projects.zones.clusters"
+          properties = let.properties
         },
 
         # gke type provider
